@@ -1,12 +1,12 @@
 from src.HashTable import HashTable
 
 """
-Main module for testing the HashTable implementation.
+Main module for testing and demonstrating the HashTable functionality.
 """
 
 def main():
     """
-    Tests the insertion and lookup functionality of the HashTable class.
+    Runs the main program that allows users to look up package details dynamically.
     """
     # Create a hash table
     package_table = HashTable()
@@ -31,19 +31,38 @@ def main():
         "delivery_time": None
     }
 
-    # Insert package data
+    # Insert package data into the hash table
     package_table.insert(1, package_1)
     package_table.insert(2, package_2)
 
-    # Retrieve and display package data
-    print("Package 1 Data:", package_table.lookup(1))
-    print("Package 2 Data:", package_table.lookup(2))
+    print("Welcome to the WGUPS Package Lookup System!")
 
-    # Test lookup for a non-existent package
-    print("Package 3 Data:", package_table.lookup(3))  # Expect None
+    # User input for package lookup
+    while True:
+        try:
+            # Prompt user for a package ID
+            user_input = input("Enter a package ID to look up (or 'exit' to quit): ")
 
-    # Display hash table contents
-    package_table.display()
+            # Exit condition
+            if user_input.lower() == 'exit':
+                print("Thank you for using the system. Goodbye!")
+                break
+
+            # Validate input
+            package_id = int(user_input)
+
+            # Lookup package data
+            package_data = package_table.lookup(package_id)
+            if package_data:
+                print(f"\nPackage {package_id} Details:")
+                for key, value in package_data.items():
+                    print(f"  {key}: {value}")
+                print()  # Add a blank line for better readability
+            else:
+                print(f"Package {package_id} not found.\n")
+
+        except ValueError:
+            print("Invalid input. Please enter a valid package ID.\n")
 
 if __name__ == "__main__":
     main()
